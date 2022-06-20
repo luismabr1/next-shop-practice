@@ -1,5 +1,5 @@
-const API = process.env.NEXT_PUBLIC_API_URL;
-const VERSION = process.env.NEXT_PUBLIC_API_VERSION;
+const API = process.env.NEXT_PUBLIC_API_URL
+const VERSION = process.env.NEXT_PUBLIC_API_VERSION
 
 const endPoints = {
   products: {
@@ -26,7 +26,7 @@ const endPoints = {
   files: {
     postFiles: `${API}/api/${VERSION}/files/upload`,
     getFiles: fileName => `${API}/api/${VERSION}/${fileName}`
-  },
-};
+  }
+}
 
 export default endPoints
