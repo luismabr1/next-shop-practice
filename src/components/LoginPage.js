@@ -27,7 +27,7 @@ export default function LoginPage(props) {
     auth
       .signIn(email, password)
       .then(() => {
-        props.history.push("/dashboard")
+        console.log('sign in success')
         /* route.push('/dashboard') */
       })
       .catch(function (error) {
@@ -35,9 +35,9 @@ export default function LoginPage(props) {
           setErrorLogin('Usuario o password incorrecto.')
         } else if (error.request) {
           setErrorLogin('Tenemos un problema')
-        } else {
+        } /*  else {
           setErrorLogin('Algo salió mal.')
-        }
+        }  */
         setLoading(false)
       })
   }
