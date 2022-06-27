@@ -5,14 +5,15 @@ import endPoints from '@services/api/'
 
 const AuthContext = createContext()
 
+export const useAuth = () => {
+  return useContext(AuthContext)
+}
+
+
 export const ProviderAuth = ({ children }) => {
   const auth = useProviderAuth()
 
   return <AuthContext.Provider value={auth}> {children} </AuthContext.Provider>
-}
-
-export const useAuth = () => {
-  return useContext(AuthContext)
 }
 
 const useProviderAuth = () => {
