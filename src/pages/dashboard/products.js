@@ -1,44 +1,45 @@
-import { Chart } from '@commons/Chart'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
-import useFetch from '@hooks/useFetch'
 import Pagination from '@components/Pagination'
 import endPoints from '@services/api'
+import useFetch from '@hooks/useFetch'
 import Modal from '@commons/Modal'
+import useAlert from '@hooks/useAlert'
+import Alert from '@commons/Alert'
 import FormProduct from '@components/FormProducts'
+import axios from 'axios'
 
 const PRODUCT_LIMIT = 5
 
-export default function Dashboard() {
-  const [open, setOpen] = useState(false)
-  const [offsetProducts, setOffsetProducts] = useState(0)
+/* function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+} */
 
-  const products = useFetch(
+const Products = () => {
+  const [open, setOpen] = useState(false)
+  const [products, setProducts] = useState([])
+  const { alert, setAlert, toggleAlert } = useAlert()
+  /*   const [offsetProducts, setOffsetProducts] = useState(0) */
+  /*   const products = useFetch(
     endPoints.products.getProducts(PRODUCT_LIMIT, offsetProducts),
     offsetProducts
   )
-  const totalProducts = useFetch(endPoints.products.getProducts(0, 0)).length
-  const categoryNames = products?.map(product => product.category)
-  const categoryCount = categoryNames?.map(category => category.name)
-  const countOccurrences = arr =>
-    arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {})
+  const totalProducts = useFetch(endPoints.products.getProducts(0, 0)).length */
 
-  /*  console.log(categoryNames)
-  console.log(categoryCount) */
-  const chartData = {
-    datasets: [
-      {
-        label: 'Categories',
-        data: countOccurrences(categoryCount),
-        borderWidth: 2,
-        backgroundColor: ['#ffbb11', 'c0c0c0', '#50af95', 'f3ba2f', '2a71d0']
-      }
-    ]
-  }
-
+  useEffect(() => {
+    async function getProducts() {
+      const response = await axios.get(endPoints.products.allProducts())
+      setProducts(response.data)
+    }
+    try {
+      getProducts()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [alert])
   return (
     <>
-      <Chart chartData={chartData} className="mb-8 mt-2" />
+      <Alert alert={alert} handleClose={toggleAlert} />
       <div className="lg:flex lg:items-center lg:justify-between mb-8">
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
@@ -52,7 +53,7 @@ export default function Dashboard() {
               type="button"
               onClick={() => setOpen(true)}
             >
-              <PlusIcon aria-hidden="true" className="-ml-1 mr-2 h-5 w-5" />
+              <PlusIcon ariaHidden="true" className="-ml-1 mr-2 h-5 w-5" />
               Add Product
             </button>
           </span>
@@ -148,17 +149,19 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {totalProducts > 0 && (
+      {/*       {totalProducts > 0 && (
         <Pagination
           itemsPerPage={PRODUCT_LIMIT}
           neighbours={3}
           setOffset={setOffsetProducts}
           totalItems={totalProducts}
         />
-      )}
+      )} */}
       <Modal open={open} setOpen={setOpen}>
-        <FormProduct />
+        <FormProduct setAlert={setAlert} setOpen={setOpen} />
       </Modal>
     </>
   )
 }
+
+export default Products
