@@ -1,30 +1,18 @@
 import { useState, useEffect } from 'react'
-import { PlusIcon } from '@heroicons/react/solid'
-import Pagination from '@components/Pagination'
+import { PlusIcon, XCircleIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 import endPoints from '@services/api'
-import useFetch from '@hooks/useFetch'
 import Modal from '@commons/Modal'
 import useAlert from '@hooks/useAlert'
 import Alert from '@commons/Alert'
 import FormProduct from '@components/FormProducts'
 import axios from 'axios'
-
-const PRODUCT_LIMIT = 5
-
-/* function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-} */
+import deleteProduct from '@services/api/products'
 
 const Products = () => {
   const [open, setOpen] = useState(false)
   const [products, setProducts] = useState([])
   const { alert, setAlert, toggleAlert } = useAlert()
-  /*   const [offsetProducts, setOffsetProducts] = useState(0) */
-  /*   const products = useFetch(
-    endPoints.products.getProducts(PRODUCT_LIMIT, offsetProducts),
-    offsetProducts
-  )
-  const totalProducts = useFetch(endPoints.products.getProducts(0, 0)).length */
 
   useEffect(() => {
     async function getProducts() {
@@ -37,6 +25,26 @@ const Products = () => {
       console.log(error)
     }
   }, [alert])
+
+  const handleDelete = id => {
+    deleteProduct(id)
+      .then(() => {
+        setAlert({
+          active: true,
+          message: 'Product Deleted',
+          type: 'success',
+          autoClose: false
+        })
+      })
+      .catch(error => {
+        setAlert({
+          active: true,
+          message: error.message,
+          type: 'error',
+          autoClose: false
+        })
+      })
+  }
   return (
     <>
       <Alert alert={alert} handleClose={toggleAlert} />
@@ -131,14 +139,18 @@ const Products = () => {
                         {product?.id}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a className="text-indigo-600 hover:text-indigo-900" href="/edit">
+                        <Link className="text-indigo-600 hover:text-indigo-900" href={`/dashboard/edit/${product.id}`}>
                           Edit
-                        </a>
+                        </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a className="text-indigo-600 hover:text-indigo-900" href="/edit">
-                          Delete
-                        </a>
+                        <XCircleIcon
+                          aria-hidden="true"
+                          className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer"
+                          onClick={() => {
+                            handleDelete(product?.id)
+                          }}
+                        />
                       </td>
                     </tr>
                   ))}

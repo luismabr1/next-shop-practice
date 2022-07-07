@@ -3,7 +3,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { useAuth } from '@hooks/useAuth'
 import { useRouter } from 'next/router'
 
-export default function LoginPage(props) {
+export default function LoginPage() {
   const [errorLogin, setErrorLogin] = useState(null)
   const [loading, setLoading] = useState(false)
   const emailRef = useRef(null)
@@ -33,13 +33,13 @@ export default function LoginPage(props) {
         router.push('/dashboard')
       })
       .catch(function (error) {
-        if (error.response?.status === 401) {
+        if (error?.response?.status === 401) {
           setErrorLogin('Usuario o password incorrecto.')
         } else if (error.request) {
           setErrorLogin('Tenemos un problema')
-        } /*  else {
+        } else {
           setErrorLogin('Algo salió mal.')
-        }  */
+        }
         setLoading(false)
       })
   }
