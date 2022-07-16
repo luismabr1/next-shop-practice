@@ -6,7 +6,7 @@ import updateProduct from '@services/api/products'
 export default function FormProduct({ setOpen, setAlert, product, categories }) {
   console.log(categories)
   console.log(product)
-  const [select, setSelect]= useState(product?.category?.id)
+  const [select, setSelect] = useState(product?.category?.id)
   const formRef = useRef(null)
   const router = useRouter()
   console.log(select)
@@ -21,13 +21,12 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
       categoryId: parseInt(formData.get('category')),
       images: [formData.get('images').name]
     }
-    if(product) {
+    if (product) {
       console.log(data)
-      updateProduct(product.id, data)
-      .then(response => {
+      updateProduct(product.id, data).then(response => {
         router.push('/dashboard/products/')
       })
-    }else{
+    } else {
       console.log(data)
       addProduct(data)
         .then(() => {
@@ -48,7 +47,6 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
           })
         })
     }
-   
   }
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
@@ -61,7 +59,7 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
               </label>
               <input
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                defaultValue={product.title}
+                defaultValue={product?.title}
                 id="title"
                 name="title"
                 type="text"
@@ -73,7 +71,7 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
               </label>
               <input
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                defaultValue={product.price}
+                defaultValue={product?.price}
                 id="price"
                 name="price"
                 type="number"
@@ -93,9 +91,9 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
                   onChange={e => setSelect(e.target.value)}
                 >
                   {categories.map(category => (
-                    <option key={category.id} value={category.id}>
+                    <option key={category?.id} value={category?.id}>
                       {' '}
-                      {category.name}{' '}
+                      {category?.name}{' '}
                     </option>
                   ))}
                 </select>
@@ -109,7 +107,7 @@ export default function FormProduct({ setOpen, setAlert, product, categories }) 
               <textarea
                 autoComplete="description"
                 className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                defaultValue={product.description}
+                defaultValue={product?.description}
                 id="description"
                 name="description"
                 rows="3"

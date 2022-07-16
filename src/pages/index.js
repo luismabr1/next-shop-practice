@@ -4,10 +4,10 @@ import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' }
+  { name: 'Product', href: '/products' },
+  { name: 'Features', href: '/features' },
+  { name: 'Marketplace', href: '/marketplace' },
+  { name: 'Company', href: '/company' }
 ]
 
 export default function Example() {
@@ -33,7 +33,7 @@ export default function Example() {
               >
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
+                    <a href="/workflow">
                       <span className="sr-only">Workflow</span>
                       <img
                         alt="Workflow"
@@ -54,9 +54,9 @@ export default function Example() {
                     <a
                       key={item.name}
                       className="font-medium text-gray-500 hover:text-gray-900"
-                      href={item.href}
+                      href={item?.href}
                     >
-                      {item.name}
+                      {item?.name}
                     </a>
                   ))}
                   <a className="font-medium text-indigo-600 hover:text-indigo-500" href="/login">

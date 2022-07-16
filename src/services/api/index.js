@@ -4,7 +4,7 @@ console.log(API, VERSION)
 
 const endPoints = {
   products: {
-    getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+    getProduct: id => `${API}/api/${VERSION}/products/${id}`,
     getProducts: (limit, offset) =>
       `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
     allProducts: () => `${API}/api/${VERSION}/products`,

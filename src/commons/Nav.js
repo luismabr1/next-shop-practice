@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 export default function Nav() {
-  const router = useRouter();
-  const route = router.pathname.substring(1);
+  const router = useRouter()
+  const route = router.pathname.substring(1)
 
   return (
     <nav className="bg-white shadow">
@@ -10,5 +10,5 @@ export default function Nav() {
         <h1 className="text-3xl font-bold text-gray-900 capitalize">{route}</h1>
       </div>
     </nav>
-  );
+  )
 }

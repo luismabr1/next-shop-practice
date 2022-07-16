@@ -30,8 +30,10 @@ export default function Edit() {
     getProduct()
       .then(response => setProduct(response.data))
       //Si el id no existe, mandamos a notFound
-      .catch(err => router.push('/notFound'))
-  }, [router?.isReady])
+      .catch(() => {
+        setNotFound(true)
+        router.push('/notFound')})
+      }, [router?.isReady])
 
   return notFound ? (
     <div> Product Not Found </div>

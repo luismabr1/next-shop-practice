@@ -28,7 +28,9 @@ const Pagination = ({ totalItems, itemsPerPage, neighbours, setOffset }) => {
   }
 
   function getClassActive(i) {
-    return i === current ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+    return i === current
+      ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
+      : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
   }
 
   function prevPage() {
@@ -51,11 +53,17 @@ const Pagination = ({ totalItems, itemsPerPage, neighbours, setOffset }) => {
         <div>
           <p className="text-sm text-gray-700">
             Showing <span className="font-medium">{itemsPerPage * (current - 1) + 1}</span> to{' '}
-            <span className="font-medium">{current * itemsPerPage < totalItems ? current * itemsPerPage : totalItems}</span> of <span className="font-medium">{totalItems}</span> results
+            <span className="font-medium">
+              {current * itemsPerPage < totalItems ? current * itemsPerPage : totalItems}
+            </span>{' '}
+            of <span className="font-medium">{totalItems}</span> results
           </p>
         </div>
         <div>
-          <nav aria-label="Pagination" className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+          <nav
+            aria-label="Pagination"
+            className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+          >
             <a
               className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
               href="#"
@@ -78,6 +86,6 @@ const Pagination = ({ totalItems, itemsPerPage, neighbours, setOffset }) => {
       </div>
     </div>
   )
-};
+}
 
 export default Pagination

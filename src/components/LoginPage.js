@@ -29,7 +29,7 @@ export default function LoginPage() {
     auth
       .signIn(email, password)
       .then(() => {
-       /*  console.log('sign in success') */
+        /*  console.log('sign in success') */
         router.push('/dashboard')
       })
       .catch(function (error) {
@@ -124,8 +124,8 @@ export default function LoginPage() {
 
             {loading && (
               <span className="flex absolute h-4 w-4 top-0 right-0 -mt-1 -mr-1">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-300 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-indigo-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-300 opacity-75" />
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-indigo-400" />
               </span>
             )}
 
